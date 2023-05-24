@@ -1,6 +1,8 @@
 ## Voll
 A Voll é um aplicativo mobile feita com Spring que segue o padrão de API REST, onde pode ser realizado o cadastro de médicos e pacientes. O foco desse projeto é o back-end.
 
+![Voll_logo](https://github.com/LucasPetruci/voll/assets/99514230/5be89efe-b32b-42e5-aeb2-eae874f69ea5)
+
 # Tecnologias Utilizadas
 * Spring REST
 * JPA
