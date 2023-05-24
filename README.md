@@ -8,6 +8,7 @@ A Voll é um aplicativo mobile feita com Spring que segue o padrão de API REST,
 * Maven
 * Lombok
 * MySql
+* Flyway
 * Postman
 
 # Status do Projeto
