@@ -4,8 +4,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import med.voll.api.entity.Medico;
-import med.voll.api.medico.DadosListagemMedico;
+import med.voll.api.domain.entity.Medico;
+import med.voll.api.domain.medico.DadosListagemMedico;
 
 public interface MedicoRepository extends JpaRepository<Medico, Long> {
 
