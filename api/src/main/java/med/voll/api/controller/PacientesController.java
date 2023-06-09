@@ -22,14 +22,14 @@ import med.voll.api.domain.paciente.DadosAtualizacaoPaciente;
 import med.voll.api.domain.paciente.DadosCadastroPacientes;
 import med.voll.api.domain.paciente.DadosDetalhamentoPaciente;
 import med.voll.api.domain.paciente.DadosListagemPaciente;
-import med.voll.api.repository.PacienteRpository;
+import med.voll.api.repository.PacienteRepository;
 
 @RestController
 @RequestMapping("pacientes")
 public class PacientesController {
 	
 	@Autowired
-	private PacienteRpository repository;
+	private PacienteRepository repository;
 	
 	@PostMapping
 	@Transactional

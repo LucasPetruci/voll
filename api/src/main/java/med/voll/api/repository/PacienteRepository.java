@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import med.voll.api.domain.entity.Paciente;
 
-public interface PacienteRpository extends JpaRepository<Paciente, Long> {
+public interface PacienteRepository extends JpaRepository<Paciente, Long> {
 
 	Page<Paciente> findAllByAtivoTrue(Pageable paginacao);
 
