@@ -1,4 +1,4 @@
-package med.voll.api.domain.usuario;
+package med.voll.api.domain.entity;
 
 import java.util.Arrays;
 import java.util.Collection;
