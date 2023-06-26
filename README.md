@@ -24,6 +24,7 @@ Informações do projeto: https://trello.com/b/cq7wgw3U/voll
 # Funcionalidade
 * Cadastro, listagem, atualização e exclusão de médicos e consultas.
 * Autenticação de Médicos e Pacientes.
+* Sistema de login (autenticação com controle de acesso usando token JWT).
 
 # Testes
 * [Postman Collection](https://elements.getpostman.com/redirect?entityId=21644760-6318d039-0138-4267-9eec-7f35ac8612f7&entityType=collection)
