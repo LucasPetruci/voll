@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import med.voll.api.domain.entity.Medico;
-import med.voll.api.domain.medico.DadosListagemMedico;
 import med.voll.api.domain.medico.Especialidade;
 
 public interface MedicoRepository extends JpaRepository<Medico, Long> {
