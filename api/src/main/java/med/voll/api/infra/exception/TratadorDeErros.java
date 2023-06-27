@@ -1,5 +1,7 @@
 package med.voll.api.infra.exception;
 
+import java.util.List;
+
 import javax.naming.AuthenticationException;
 
 import org.springframework.http.HttpStatus;
@@ -17,35 +19,35 @@ import jakarta.persistence.EntityNotFoundException;
 public class TratadorDeErros {
 
 	@ExceptionHandler(EntityNotFoundException.class)
-	public ResponseEntity tratarErro404() {
+	public ResponseEntity<String> tratarErro404() {
 		return ResponseEntity.notFound().build();		
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity tratarErro400(MethodArgumentNotValidException ex) {
+	public ResponseEntity<List<DadosErrorValidacao>> tratarErro400(MethodArgumentNotValidException ex) {
 		var erros = ex.getFieldErrors();
 		
 		return ResponseEntity.badRequest().body(erros.stream().map(DadosErrorValidacao::new).toList());
 	}
 	
 	@ExceptionHandler(HttpMessageNotReadableException.class)
-	public ResponseEntity tratarErro400(HttpMessageNotReadableException ex) {
+	public ResponseEntity<String> tratarErro400(HttpMessageNotReadableException ex) {
 		return ResponseEntity.badRequest().body(ex.getMessage());
 		
 	}
 	
 	@ExceptionHandler(AuthenticationException.class)
-	public ResponseEntity tratarErrorBadCredencials() {
+	public ResponseEntity<String> tratarErrorBadCredencials() {
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Falha na autenticacao");
 	}
 	
 	@ExceptionHandler(AccessDeniedException.class)
-	public ResponseEntity tratarErroAcessoNegado() {
+	public ResponseEntity<String> tratarErroAcessoNegado() {
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Acesso Negado");
 	}
 	
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity tratarErro500(Exception ex) {
+	public ResponseEntity<String> tratarErro500(Exception ex) {
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("ERRO: "+ex);
 	}
 	
