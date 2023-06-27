@@ -55,6 +55,10 @@ public class TratadorDeErros {
     	public DadosErrorValidacao(FieldError erro) {
             this(erro.getField(), erro.getDefaultMessage());
     	}
+    }  
+    @ExceptionHandler(ValidacaoException.class)
+    public ResponseEntity<String> tratarErroRegraDeNegocio(ValidacaoException ex){
+    	return ResponseEntity.badRequest().body(ex.getMessage());
     }
 
 }
