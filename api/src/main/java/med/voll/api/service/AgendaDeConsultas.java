@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.validation.Valid;
 import med.voll.api.domain.consulta.DadosAgendamentoConsulta;
+import med.voll.api.domain.consulta.DadosCancelamentoConsulta;
 import med.voll.api.domain.consulta.DadosDetalhamentoConsulta;
 import med.voll.api.domain.consulta.validacoes.ValidadorAgendamentoDeConsulta;
 import med.voll.api.domain.entity.Consulta;
@@ -45,7 +47,7 @@ public class AgendaDeConsultas {
 		if(medico == null) {
 			throw new ValidacaoException("Não existe médico diposnivel nessa data");
 		}
-		var consulta = new Consulta(null, medico, paciente, dados.data());
+		var consulta = new Consulta(null, medico, paciente, dados.data(), null);
 		
 		consultaRepository.save(consulta);
 		
@@ -61,5 +63,13 @@ public class AgendaDeConsultas {
 		}
 		
 		return medicoRepository.escolherMedicoAleatorioLivreNaData(dados.especialidade(), dados.data());
+	}
+
+	public void cancelar(@Valid DadosCancelamentoConsulta dados) {
+
+		if(!consultaRepository.existsById(dados.idConsulta())) {
+			throw new ValidacaoException("ID da consulta informadao não existe!");
+		}
+		
 	}
 }

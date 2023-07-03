@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import med.voll.api.domain.consulta.DadosAgendamentoConsulta;
+import med.voll.api.domain.consulta.DadosCancelamentoConsulta;
 import med.voll.api.service.AgendaDeConsultas;
 
 @RestController
@@ -25,4 +26,11 @@ public class ConsultaController {
 		var dto = agenda.agendarConsulta(dados);
 		return ResponseEntity.ok(dto);
 	}
+	
+	public ResponseEntity cancelar(@RequestBody @Valid DadosCancelamentoConsulta dados){
+		agenda.cancelar(dados);
+		return ResponseEntity.noContent().build();		
+	}
+		
+	
 }
