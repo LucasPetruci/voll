@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jakarta.validation.Valid;
 import med.voll.api.domain.consulta.DadosAgendamentoConsulta;
 import med.voll.api.domain.consulta.DadosCancelamentoConsulta;
 import med.voll.api.domain.consulta.DadosDetalhamentoConsulta;
 import med.voll.api.domain.consulta.validacoes.ValidadorAgendamentoDeConsulta;
+import med.voll.api.domain.consulta.validacoes.cancelamento.ValidadoresCancelamento;
 import med.voll.api.domain.entity.Consulta;
 import med.voll.api.domain.entity.Medico;
 import med.voll.api.infra.exception.ValidacaoException;
@@ -32,6 +32,9 @@ public class AgendaDeConsultas {
 	@Autowired
 	private List<ValidadorAgendamentoDeConsulta> validadores;
 	
+	@Autowired
+	private List<ValidadoresCancelamento> validadoresCancelamento;
+	
 	public DadosDetalhamentoConsulta agendarConsulta(DadosAgendamentoConsulta dados) {
 		if(!pacienteRepository.existsById(dados.idPaciente())) {
 			throw new ValidacaoException("Id do paciente não existe");
@@ -53,7 +56,21 @@ public class AgendaDeConsultas {
 		
 		return new DadosDetalhamentoConsulta(consulta);
 	}
+	
+	
+	public void cancelar(DadosCancelamentoConsulta dados) {
 
+		if(!consultaRepository.existsById(dados.idConsulta())) {
+			throw new ValidacaoException("ID da consulta informadao não existe!");
+		}
+		
+		validadoresCancelamento.forEach(v -> v.validar(dados));
+		
+		var consulta = consultaRepository.getReferenceById(dados.idConsulta());
+		consulta.cancelar(dados.motivo());		
+	}
+
+	
 	private Medico escolherMedico(DadosAgendamentoConsulta dados) {
 		if(dados.idMedico() != null) {
 			return medicoRepository.getReferenceById(dados.idMedico());
@@ -65,11 +82,5 @@ public class AgendaDeConsultas {
 		return medicoRepository.escolherMedicoAleatorioLivreNaData(dados.especialidade(), dados.data());
 	}
 
-	public void cancelar(@Valid DadosCancelamentoConsulta dados) {
-
-		if(!consultaRepository.existsById(dados.idConsulta())) {
-			throw new ValidacaoException("ID da consulta informadao não existe!");
-		}
-		
-	}
+	
 }
